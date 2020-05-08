@@ -13,6 +13,15 @@ body {
     top: 0;
     left: 0;
     z-index: -3;
+
+    display: none;
+  }
+
+  #hexBackImg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -3;
   }
 
   #darkerGr {
@@ -40,6 +49,9 @@ body {
   }
 
   #mainContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: calc(100vh - 90px);
 
@@ -50,7 +62,7 @@ body {
   
       width: 200px;
       height: 300px;
-  
+
       &:hover .front {
         z-index:0;
         
@@ -59,6 +71,9 @@ body {
       }
   
       .front {
+        
+        z-index: 0;
+
         padding: 20px;
         color: #dbbb7f;
         font-size: 18px;
@@ -75,10 +90,10 @@ body {
         border-radius: 10px;
         box-shadow: 0 0 2px 0 #dbbb7f, 0 0 7px 2px #e49503, inset 0 0 2px 0 #dbbb7f, inset 0 0 7px 2px #e49503;
   
-        transform: scale(0.8);
-        z-index: -5;
+        transform: scale(0.97);
+        
   
-        transition: 0.5s;
+        transition: 0.2s;
   
         
       }
@@ -91,6 +106,60 @@ body {
     }
   }
 
+  .modalWindow {
+    display: none;
+    box-sizing: border-box;
+    width: 400px;
+    height: 250px;
+
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border-radius: 10.5px;
+    box-shadow: 0 0 2px 0.5px #dbbb7f, 0 0 7px 2px #e49503;
+
+    overflow: hidden;
+
+    -webkit-user-select: none;
+
+    .fakeBackMW {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      filter: blur(1px);
+
+      background: black;
+    }
+
+    .contentMW {
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+
+
+      background: rgba(228, 149, 3, 0.3);
+      border: 1.5px solid #dbbb7f;
+      border-radius: 10px;
+      box-shadow: inset 0 0 2px 0 #dbbb7f, inset 0 0 5px 2px #e49503;
+
+      .dragMW {
+        cursor: pointer;
+        width: 100%;
+        height: 30px;
+
+        border-bottom: 1.5px solid #dbbb7f;
+        background: rgba(228, 149, 3, 0.4);
+        box-shadow: 0 0 1px 0 #dbbb7f, 0 0 5px 1px #e49503;
+      }
+    }
+  }
+
   #bottomButtons {
     position: absolute;
     bottom: 0;
@@ -100,7 +169,10 @@ body {
     height: 90px;
 
     .btn {
+      -webkit-user-select: none;
+
       position: absolute;
+      cursor: pointer;
     }
 
     #menuBtn {
@@ -114,19 +186,36 @@ body {
     }
 
     #dayNightSwitcher {
-      bottom: 13px;
-      left: calc(50% - 117px);
+      bottom: 20px;
+      left: calc(50% - 90px);
       transform: translateX(-50%);
 
       width: 50px;
       height: 50px;
-      background: #ececec;
+      line-height: 50px;
+    }
+
+    #lastReadBtn {
+      bottom: 20px;
+      left: calc(50% + 90px);
+      transform: translateX(-50%);
+
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
+
+    }
+    
+    #msgsBTN {
+      bottom: 20px;
+      left: calc(50% + 150px);
+      transform: translateX(-50%);
+
+      width: 50px;
+      height: 50px;
+      line-height: 50px;
 
     }
 
-  }
-
-  .clip-polygon {
-    clip-path: url();
   }
 }

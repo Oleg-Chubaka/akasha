@@ -8,6 +8,8 @@
 </head>
 <body>
   <canvas id="hexBack"></canvas>
+  <img id="hexBackImg">
+
   <div id="darkerGr"></div>
   <div id="mouseLight"></div>
   
@@ -24,13 +26,33 @@
     </div>
   </div>
 
+  <div id="windLastRead" class="modalWindow" style='z-index: 0;'>
+    <img class="fakeBackMW"/>
+    <div class="contentMW">
+      <div class="dragMW">Последнее прочитанное</div>
+
+    </div>
+  </div>
+
+  <div id="windMsgs" class="modalWindow" style='z-index: 0;'>
+    <img class="fakeBackMW"/>
+    <div class="contentMW">
+      <div class="dragMW">Сообщения</div>
+    </div>
+  </div>
+
   <div id="bottomButtons">
     <div id="menuBtn" class="btn" onclick="alert('kuku');"></div>
     <div id="dayNightSwitcher" class="btn">Switch</div>
+    <div id="lastReadBtn" class="btn btnMW" data-toggle="windLastRead">Последнее</div>
+    <div id="msgsBTN" class="btn btnMW" data-toggle="windMsgs">Сообщения</div>
   </div>
 
-  <!-- <script src="js/jquery.js"></script> -->
+  <script src="js/jquery.js"></script>
   <script src="js/site.js"></script>
+  <script src="js/switch.js"></script>
+  <script src="js/modalWinds.js"></script>
+  <!-- <script src="js/windLastRead.js"></script> -->
   <script src="js/canvas.js"></script>
 </body>
 </html>

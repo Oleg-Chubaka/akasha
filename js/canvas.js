@@ -24,6 +24,10 @@
 
     drawBack();
     drawButtons();
+    backImage = canvas.toDataURL();
+    $('#hexBackImg').attr("src",backImage);
+    $('#windLastRead .fakeBackMW').attr("src",backImage);
+    $('#windMsgs .fakeBackMW').attr("src",backImage);
   }
   redrawCanvas();
 
