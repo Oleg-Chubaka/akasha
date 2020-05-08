@@ -22,14 +22,6 @@ body #hexBackImg {
   top: 0;
   left: 0;
   z-index: -3;
-  -webkit-mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/sun.svg);
-          mask-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/sun.svg);
-  -webkit-mask-size: 100vmin;
-          mask-size: 100vmin;
-  -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-          mask-position: center;
 }
 
 body #darkerGr {
