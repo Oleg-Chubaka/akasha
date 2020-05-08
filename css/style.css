@@ -119,8 +119,6 @@ body .modalWindow .fakeBackMW {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  -webkit-filter: blur(1px);
-          filter: blur(1px);
   background: black;
 }
 
