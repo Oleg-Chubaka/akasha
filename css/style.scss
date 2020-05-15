@@ -127,7 +127,7 @@ body {
     .fakeBackMW {
       position: absolute;
       width: 100vw;
-      height: 100vh;
+      height: calc(100vh - 90px);
 
       background: black;
     }

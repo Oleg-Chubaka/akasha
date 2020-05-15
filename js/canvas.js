@@ -1,9 +1,11 @@
 (function() {
   var canvas = document.getElementById('hexBack');
   var switcher = document.getElementById('dayNightSwitcher');
-  var colors = [['#202020', '#ffffff', '#858585', '#050505', '#101010', '#232323', '#000000', '#ffffff', '#757575', '#202020'],
-                ['#e5e5e5', '#ffffff', '#101010', '#151515', '#c5c5c5', '#ffffff', '#101010', '#ffffff', '#454545', '#404040']];
+  var colors = [['#202020', '#ffffff', '#858585', '#050505', '#101010', '#232323', '#000000', '#ffffff', '#757575', '#202020', '#000000'],
+                ['#e5e5e5', '#ffffff', '#101010', '#151515', '#c5c5c5', '#ffffff', '#101010', '#ffffff', '#454545', '#404040', '#909090']];
   
+  var theme = 0;
+
   switcher.addEventListener('click', switchDayNight);
   window.addEventListener('resize', resizeCanvas, false);
   window.addEventListener('resize', redrawCanvas, false);
@@ -12,6 +14,8 @@
   function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+
+    redrawCanvas();
   }
   resizeCanvas();
 
@@ -24,16 +28,51 @@
 
     drawBack();
     drawButtons();
-    backImage = canvas.toDataURL();
+    var backImage = canvas.toDataURL();
     $('#hexBackImg').attr("src",backImage);
-    $('#windLastRead .fakeBackMW').attr("src",backImage);
-    $('#windMsgs .fakeBackMW').attr("src",backImage);
+
+    $('#windLastRead .fakeBackMW').attr("src",getModalBack('jpeg'));
+    $('#windMsgs .fakeBackMW').attr("src",getModalBack('webp'));
+
+    // var modalBack = getModalBack();
+    // $('#windLastRead .fakeBackMW').attr("src",modalBack);
+    // $('#windMsgs .fakeBackMW').attr("src",modalBack);
   }
-  redrawCanvas();
 
   function switchDayNight(){
-    colors = colors.reverse();
+    if (theme == 0) {
+      theme = 1;
+    } else {
+      theme = 0;
+    }
     redrawCanvas();
+  }
+
+  function getModalBack(type) {
+    var help_canvas = document.createElement('canvas');
+    var help_ctx = help_canvas.getContext('2d');
+
+    var desiredWidth = canvas.width;
+    var desiredHeight = canvas.height - 90;
+
+    help_canvas.width = desiredWidth;
+    help_canvas.height = desiredHeight;
+
+    help_ctx.restore();
+    help_ctx.save();
+    
+    var data = canvas.getContext('2d').getImageData(0, 0, desiredWidth, desiredHeight);
+
+    help_ctx.putImageData(data, 0, 0);
+
+    help_ctx.globalCompositeOperation = "destination-over";
+
+    help_ctx.fillStyle = colors[theme][10];
+    help_ctx.fillRect(0, 0, desiredWidth, desiredHeight);
+
+    var imageData = help_canvas.toDataURL("image/" + type, 1.0);
+
+    return imageData;
   }
 
   // calcHex(центр Х, центр Y, радиус описаной окружности)
@@ -54,7 +93,7 @@
     var ctx = canvas.getContext('2d');
     
     ctx.beginPath();
-    ctx.fillStyle = colors[0][0];
+    ctx.fillStyle = colors[theme][0];
     ctx.moveTo(points[0][0], points[0][1]);
     points.forEach((e) => {
       ctx.lineTo(e[0],e[1]);
@@ -68,7 +107,7 @@
     
     ctx.lineWidth = r/110;
     ctx.beginPath();
-    ctx.strokeStyle = colors[0][1];
+    ctx.strokeStyle = colors[theme][1];
     ctx.moveTo(points[0][0], points[0][1]);
     ctx.lineTo(points[1][0], points[1][1]);
     ctx.lineTo(points[2][0], points[2][1]);
@@ -76,7 +115,7 @@
 
     ctx.lineWidth = r/110;
     ctx.beginPath();
-    ctx.strokeStyle = colors[0][2];
+    ctx.strokeStyle = colors[theme][2];
     ctx.moveTo(points[2][0], points[2][1]);
     ctx.lineTo(points[3][0], points[3][1]);
     ctx.moveTo(points[5][0], points[5][1]);
@@ -85,7 +124,7 @@
 
     ctx.lineWidth = r/20;
     ctx.beginPath();
-    ctx.strokeStyle = colors[0][3];
+    ctx.strokeStyle = colors[theme][3];
     ctx.moveTo(points[3][0], points[3][1]);
     ctx.lineTo(points[4][0], points[4][1]);
     ctx.lineTo(points[5][0], points[5][1]);
@@ -97,8 +136,8 @@
 
     var gradient = ctx.createLinearGradient(points[1][0], points[1][1], points[4][0], points[4][1]);
 
-    gradient.addColorStop(0, colors[0][4]);
-    gradient.addColorStop(1, colors[0][5]);
+    gradient.addColorStop(0, colors[theme][4]);
+    gradient.addColorStop(1, colors[theme][5]);
 
     ctx.beginPath();
     ctx.fillStyle = gradient;
@@ -107,7 +146,7 @@
       ctx.lineTo(e[0],e[1]);
     });
     ctx.closePath();
-    ctx.shadowColor = colors[0][6];
+    ctx.shadowColor = colors[theme][6];
     ctx.shadowBlur = r*0.4;
     ctx.shadowOffsetX = -r/40;
     ctx.shadowOffsetY = -r/40;
@@ -115,7 +154,7 @@
 
     ctx.lineWidth = r/60;
     ctx.beginPath();
-    ctx.strokeStyle = colors[0][7];
+    ctx.strokeStyle = colors[theme][7];
     ctx.moveTo(points[0][0], points[0][1]);
     ctx.lineTo(points[1][0], points[1][1]);
     ctx.lineTo(points[2][0], points[2][1]);
@@ -123,7 +162,7 @@
 
     ctx.lineWidth = r/80;
     ctx.beginPath();
-    ctx.strokeStyle = colors[0][8];
+    ctx.strokeStyle = colors[theme][8];
     ctx.moveTo(points[2][0], points[2][1]);
     ctx.lineTo(points[3][0], points[3][1]);
     ctx.moveTo(points[5][0], points[5][1]);
@@ -132,7 +171,7 @@
 
     ctx.lineWidth = r/20;
     ctx.beginPath();
-    ctx.strokeStyle = colors[0][9];
+    ctx.strokeStyle = colors[theme][9];
     ctx.moveTo(points[3][0], points[3][1]);
     ctx.lineTo(points[4][0], points[4][1]);
     ctx.lineTo(points[5][0], points[5][1]);
@@ -203,6 +242,5 @@
     drawButtonHex(calcHex(cw + 250, h + 6, 28), 27);
     drawButtonHex(calcHex(cw - 250, h + 6, 28), 27);
   }
-  
 
 })();
